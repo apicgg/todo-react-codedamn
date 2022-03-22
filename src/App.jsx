@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 
+let globalId = 0;
+
 function App() {
-  const [todos, setTodos] = useState(['learn react', 'earn more']);
+  const [todos, setTodos] = useState([{ todo: 'hello', id: 1 }]);
   const [task, setTask] = useState('');
 
   function createTodo(event) {
     event.preventDefault();
     setTodos((oldTodos) => {
       setTask('');
-      return [...oldTodos, task];
+      return [...oldTodos, { todo: task, id: globalId++ }];
     });
   }
 
@@ -18,6 +20,10 @@ function App() {
   //     createTodo();
   //   }
   // }
+
+  function deleteTodo(itemId) {
+    setTodos((oldTodos) => {oldTodos.filter((item) => item.id !== itemId)};
+  }
 
   return (
     <div>
@@ -36,8 +42,21 @@ function App() {
       </form>
 
       <ul>
-        {todos.map((todo) => {
-          return <li>{todo}</li>;
+        {todos.map((item) => {
+          return (
+            <div key={item.id}>
+              <li>
+                {item.todo} {item.id}
+              </li>
+              <button
+                onClick={() => {
+                  deleteTodo(item.id);
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          );
         })}
       </ul>
     </div>
