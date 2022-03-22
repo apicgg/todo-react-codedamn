@@ -22,7 +22,7 @@ function App() {
   // }
 
   function deleteTodo(itemId) {
-    setTodos((oldTodos) => {oldTodos.filter((item) => item.id !== itemId)};
+    setTodos((oldTodos) => oldTodos.filter((item) => item.id !== itemId)); // Need to remove the curly braces in order to work
   }
 
   return (
